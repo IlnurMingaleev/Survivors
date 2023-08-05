@@ -107,6 +107,7 @@ public class ProceduralGeneration : MonoBehaviour
         {
             for (int xCoord = -(_noiseDimensionX / 2); xCoord < (_noiseDimensionX / 2); xCoord++) 
             {
+                _tilemap[0].SetTile(new Vector3Int(xCoord, yCoord, 0), _grassTileBase);
                 _tilemap[1].SetTile(new Vector3Int(xCoord, yCoord, 0), _grassTileBase);
                 _tilemap[0].SetTileFlags(new Vector3Int(xCoord, yCoord, 0), TileFlags.None);
                 _tilemap[1].SetTileFlags(new Vector3Int(xCoord, yCoord, 0), TileFlags.None);
