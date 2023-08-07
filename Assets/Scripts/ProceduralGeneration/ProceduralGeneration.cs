@@ -143,20 +143,20 @@ public class ProceduralGeneration : MonoBehaviour
     }
     private void Update()
     {
-        _panMovement = new Vector3(0, 0, -10);
-        if (Input.GetKey(KeyCode.S)) _direction = Vector3.down;
+        /*_panMovement = new Vector3(0, 0, -10);
+        *//*if (Input.GetKey(KeyCode.S)) _direction = Vector3.down;
         if (Input.GetKey(KeyCode.W)) _direction = Vector3.up;
         if (Input.GetKey(KeyCode.A)) _direction = Vector3.left;
-        if (Input.GetKey(KeyCode.D)) _direction = Vector3.right;
+        if (Input.GetKey(KeyCode.D)) _direction = Vector3.right;*//*
 
-        _panMovement += _direction * _panSpeed * Time.deltaTime;
+        //_panMovement += _direction * _panSpeed * Time.deltaTime;
 
         _camera.transform.Translate(new Vector3(_panMovement.x, _panMovement.y, 0), Space.World);
         if (Mathf.Abs(_posCamera.x - _camera.transform.position.x) > _panSpeed - 1 ||
             Mathf.Abs(_posCamera.y - _camera.transform.position.y) > _panSpeed - 1)
         {
             StartCoroutine(GenerateTilemap());
-        }
+        }*/
 
     }
 
