@@ -1,24 +1,19 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
 using System;
-public class Movement : IMovement
+[CreateAssetMenu(fileName = "MovementSettings", menuName = "Movement")]
+public class Movement : ScriptableObject, IMovement
 {
-    private float _maxSpeed;
-    private float _acceleration = 50;
-    private float _deceleration = -100;
+    [SerializeField] private float _maxSpeed;
+    [SerializeField] private float _acceleration = 50;
+    [SerializeField] private float _deceleration = -100;
+    [SerializeField] private Transform _agentTransfrom;
     private float _currentSpeed = 0;
     private Vector2 _oldMovementDirection;
     protected Vector2 _movementDirection;
-    private Transform _transform;
+    
 
-    public Movement(float maxSpeed, float acceleration, float deceleration, Transform transform, float currentSpeed ) 
-    {
-        _maxSpeed = maxSpeed;
-        _currentSpeed = currentSpeed;
-        _acceleration = acceleration;
-        _deceleration = deceleration;
-        _transform = transform;
-    }
+    
     
     public void Move(Rigidbody2D rigidbody2D)
     {
@@ -50,7 +45,7 @@ public class Movement : IMovement
                     break;
                 case Transform:
                     Transform targetTransform = (Transform)Convert.ChangeType(directionPovider, typeof(Transform));
-                    _movementDirection = (targetTransform.position - _transform.position).normalized;
+                    _movementDirection = (targetTransform.position - _agentTransfrom.position).normalized;
                     break;
             }
         }

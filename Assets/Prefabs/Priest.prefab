@@ -360,7 +360,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4000013296727282
 Transform:
   m_ObjectHideFlags: 0
@@ -375,7 +375,7 @@ Transform:
   m_Children:
   - {fileID: 4000012598321814}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &95000010463452298
 Animator:
@@ -411,6 +411,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _health: 0
+  playerMovement:
+    _interfaceObject: {fileID: 11400000, guid: 81c0d94a880a11a41af7916c38e2d668, type: 2}
 --- !u!50 &8775491530541481342
 Rigidbody2D:
   serializedVersion: 4

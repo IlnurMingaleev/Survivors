@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectPool 
+public class OldObjectPool 
 {
     private GameObject _prefab;       // The prefab to pool
     private int _initialPoolSize = 10; // Initial number of objects to instantiate
@@ -12,7 +12,7 @@ public class ObjectPool
     private int _offset = 80;
     private List<GameObject> _pooledObjects = new List<GameObject>();
 
-    public ObjectPool(GameObject prefab, int initialPoolSize, Transform spawnTransform, bool canGrow = false, int offset = 80, bool spawnOutsideCamView = false) 
+    public OldObjectPool(GameObject prefab, int initialPoolSize, Transform spawnTransform, bool canGrow = false, int offset = 80, bool spawnOutsideCamView = false) 
     {
         _prefab = prefab;
         _initialPoolSize = initialPoolSize;
