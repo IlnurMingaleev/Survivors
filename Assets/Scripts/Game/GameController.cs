@@ -14,7 +14,7 @@ public class GameController : MonoBehaviour
 
     private GameObject _runtimePlayer;
 
-    [SerializeField] private IPoolActionsProvider _poolActionsProvider;
+    private IPoolActions _enemyPoolActions;
     private GameObjectPool _enemyPool;
     //private ObjectPool objectPool;
     //private Camera camera;
@@ -22,8 +22,9 @@ public class GameController : MonoBehaviour
     private void Awake()
     {
         //camera = Camera.main;
+        _enemyPoolActions = GetComponent<IPoolActions>();
         _runtimePlayer = Object.Instantiate(_playerPrefab);
-        _enemyPool = new GameObjectPool(_enemyPrefab, 20, _poolActionsProvider.Value);
+        if(_enemyPoolActions!=null)_enemyPool = new GameObjectPool(_enemyPrefab, 20, _enemyPoolActions);
         //GameObject playerGameObject = Instantiate(_playerPrefab);
         //playerGameObject.SetActive(true);
         //playerGameObject.GetComponent<PlayerController>().Init();

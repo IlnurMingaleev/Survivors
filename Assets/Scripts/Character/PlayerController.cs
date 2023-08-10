@@ -5,35 +5,29 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private float _health;
-    [SerializeField] private IMovement playerMovement;
-    //[SerializeField] private IWeapon
-    private Rigidbody2D rigidbody2D;
-
-    public void Init()
+    [SerializeField] private InputActionReference _movementReference;
+    private IHealth _charHealthComponent;
+    private IMovement _charMovementComponent;
+    private Rigidbody2D _rigidbody2D;
+    public void Update() 
     {
-        rigidbody2D = GetComponent<Rigidbody2D>();
-        playerMovement = 
-    } 
-
-
-    public void FixedUpdate() 
-    {
-       if(playerMovement != null && rigidbody2D != null) playerMovement.Value.Move(rigidbody2D);
+        if(_charMovementComponent!=null)
+            _charMovementComponent.SetDirection(_movementReference.action.ReadValue<Vector2>());
     }
 
-    public void GetDirectionWrapped(InputAction.CallbackContext callbackContext) 
+    public void Awake()
     {
-        if(playerMovement != null) playerMovement.Value.GetMovementDirection<InputAction.CallbackContext>(callbackContext);
+        _rigidbody2D = GetComponent<Rigidbody2D>();
+        //_charHealthComponent = GetComponent<IHealth>();
+        _charMovementComponent = GetComponent<IMovement>();
     }
 
-    public void Damage(int damage)
+    private void FixedUpdate()
     {
-        throw new System.NotImplementedException();
+        Move();
     }
-
-    public void SetTarget(Transform targetTransform)
+    public void Move()
     {
-        throw new System.NotImplementedException();
+        if ( _charMovementComponent != null) _charMovementComponent.Move();
     }
 }

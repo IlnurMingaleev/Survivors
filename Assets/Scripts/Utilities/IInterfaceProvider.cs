@@ -14,10 +14,7 @@ public class InterfaceProvider<T>
     {
         get
         {
-            if (_interface == null)
-            {
-                _interface = _interfaceObject as T;
-            }
+            
             return _interface;
         }
     }

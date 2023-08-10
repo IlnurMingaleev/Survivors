@@ -1,7 +1,7 @@
 using UnityEngine;
 using ObjectPool;
-[CreateAssetMenu(fileName ="EnemyPoolActions", menuName ="ObjectPoolActions")]
-public class EnemyPoolActions : ScriptableObject,IPoolActions
+
+public class EnemyPoolActions : MonoBehaviour,IPoolActions
 {
     [SerializeField] private Transform _startTransform;
     [SerializeField] private int _offset;
@@ -11,17 +11,16 @@ public class EnemyPoolActions : ScriptableObject,IPoolActions
         @object.SetActive(true);
     }
 
-    public GameObject Preload(GameObject prefab)
-    {
+    public GameObject Preload(GameObject prefab) {
         GameObject instantiatedObject = Object.Instantiate(prefab);
         
         instantiatedObject.SetActive(false);
         return instantiatedObject;
-    }
+}
 
     public void ReturnAction(GameObject @object)
     {
-        @object.SetActive(false);
+        if(@object != null)@object.SetActive(false);
     }
     private void SetPrefabStartPosition(GameObject obj)
     {

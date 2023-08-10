@@ -1,23 +1,35 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
 using System;
-[CreateAssetMenu(fileName = "MovementSettings", menuName = "Movement")]
-public class Movement : ScriptableObject, IMovement
+using UnityEngine.InputSystem;
+
+public class Movement : MonoBehaviour, IMovement
 {
     [SerializeField] private float _maxSpeed;
     [SerializeField] private float _acceleration = 50;
-    [SerializeField] private float _deceleration = -100;
-    [SerializeField] private Transform _agentTransfrom;
+    [SerializeField] private float _deceleration = 100;
+    //[SerializeField] private InputActionReference _movementActionReference;
     private float _currentSpeed = 0;
     private Vector2 _oldMovementDirection;
     protected Vector2 _movementDirection;
-    
+    private Rigidbody2D _rigidbody2D;
 
-    
-    
-    public void Move(Rigidbody2D rigidbody2D)
+    private void Awake()
     {
-        if(_oldMovementDirection.magnitude < 0.05f || _movementDirection.magnitude < 0.05f) return;
+        _rigidbody2D = GetComponent<Rigidbody2D>();
+    }
+
+    private void Update()
+    {
+        //_movementDirection = _movementActionReference.action.ReadValue<Vector2>();
+    }
+
+    private void FixedUpdate()
+    {
+       // Move();
+    }
+    public void Move()
+    {
         if (_movementDirection.magnitude > 0 && _currentSpeed >= 0)
         {
             _oldMovementDirection = _movementDirection;
@@ -28,26 +40,13 @@ public class Movement : ScriptableObject, IMovement
             _currentSpeed -= _deceleration * _maxSpeed * Time.deltaTime;
         }
         _currentSpeed = Mathf.Clamp(_currentSpeed, 0, _maxSpeed);
-        rigidbody2D.velocity = _oldMovementDirection * _currentSpeed;
+        _rigidbody2D.velocity = _oldMovementDirection * _currentSpeed;
     }
-    
 
-    public void GetMovementDirection<T>(T directionPovider)
+
+    public void SetDirection(Vector2 direction)
     {
-        Type directiomnProviderType = typeof(T);
-        if (directionPovider != null)
-        {
-            switch (directionPovider)
-            {
-                case InputAction.CallbackContext:
-                    InputAction.CallbackContext context = (InputAction.CallbackContext)Convert.ChangeType(directionPovider, typeof(InputAction.CallbackContext));
-                    _movementDirection = context.ReadValue<Vector2>();
-                    break;
-                case Transform:
-                    Transform targetTransform = (Transform)Convert.ChangeType(directionPovider, typeof(Transform));
-                    _movementDirection = (targetTransform.position - _agentTransfrom.position).normalized;
-                    break;
-            }
-        }
+        if(direction != null)_movementDirection = direction;
     }
+
 }

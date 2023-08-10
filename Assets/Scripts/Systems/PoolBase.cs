@@ -19,6 +19,7 @@ namespace ObjectPool
             _preloadFunc = preloadFunc;
             _getAction = getAction;
             _returnAction = returnAction;
+            _pool = new Queue<T>();
             if (preloadFunc == null) 
             {
                 Debug.LogError("Preload function is null");

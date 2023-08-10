@@ -4,34 +4,38 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    [SerializeField] private float _health,_maxHealth;
 
-    [SerializeField]private Transform _playerTransform;
-    private SpriteRenderer _spriteRenderer;
-    [SerializeField] private IMovementProvider _enemyMovement;
-    private Rigidbody2D _rigidbody2D;
+    private Transform _playerTransform;
+    private IHealth _charHealthComponent;
+    private IMovement _charMovementComponent;
 
 
-    private void Awake()
+
+
+    public void Awake()
     {
-        _rigidbody2D = GetComponent<Rigidbody2D>();
-        _spriteRenderer = GetComponent<SpriteRenderer>();
+        
+        //_charHealthComponent = GetComponent<IHealth>();
+        _charMovementComponent = GetComponent<IMovement>();
     }
     private void Update()
     {
-        if (_playerTransform != null && _enemyMovement != null) _enemyMovement.Value.GetMovementDirection<Transform>(_playerTransform);
+        if(_playerTransform != null && _charMovementComponent != null)_charMovementComponent.SetDirection((_playerTransform.position - transform.position).normalized);
     }
 
     private void FixedUpdate()
     {
-        if(_enemyMovement != null) _enemyMovement.Value.Move(_rigidbody2D);
+        if(_playerTransform != null) Move();
     }
 
     public void SetTargetTransform(Transform targetTransform) 
     {
         _playerTransform = targetTransform;
     }
+    public void Move()
+    {
+        if (_charMovementComponent != null) _charMovementComponent.Move();
+    }
 
 
- 
 }
